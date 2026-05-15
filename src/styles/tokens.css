@@ -1,0 +1,202 @@
+/* =========================================================
+   Julie Ricard — Colors & Type
+   Base tokens + semantic styles for all surfaces
+   ========================================================= */
+
+/* ---------- FONTS ---------- */
+/* DM Sans — structural / body */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap');
+/* DM Serif Display — substitute for Adirek Serif (display only).
+   See README.md → CAVEATS. Replace with licensed Adirek Serif when available. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+
+:root {
+  /* ---------- COLOR PALETTE (raw) ---------- */
+  --verde-petroleo: #0E3B3E;   /* dark base — sustains the brand */
+  --verde-salvia:   #316057;   /* depth / layering over petroleo */
+  --off-white:      #F3E8D9;   /* warm neutral, "respiro" */
+  --rosa-pink:      #E8388A;   /* shout — quotes, outlines, keywords */
+  --rosa-claro:     #F4B8C9;   /* soft pink — quote backgrounds */
+  --laranja:        #EE7D1A;   /* energy/urgency — keyword markers */
+
+  /* Slight tints for hover / pressed states (NOT for backgrounds) */
+  --petroleo-hover:  #16484c;
+  --petroleo-press:  #0a2f31;
+  --pink-hover:      #ef4a99;
+  --pink-press:      #c92b75;
+  --laranja-hover:   #f58f3a;
+  --laranja-press:   #d36810;
+
+  /* ---------- SEMANTIC: SURFACES ---------- */
+  --bg:              var(--off-white);
+  --bg-dark:         var(--verde-petroleo);
+  --bg-layer:        var(--verde-salvia);     /* tinted layer over bg-dark */
+  --bg-loud-pink:    var(--rosa-pink);        /* solid pink blocks */
+  --bg-soft-pink:    var(--rosa-claro);       /* quote / breath blocks */
+  --bg-loud-orange:  var(--laranja);
+
+  /* ---------- SEMANTIC: FOREGROUND ---------- */
+  --fg1:             var(--verde-petroleo);   /* primary on light bg */
+  --fg2:             #2A4A4C;                 /* slightly softer on light bg */
+  --fg-on-dark:      var(--off-white);        /* primary on petroleo */
+  --fg-on-dark-2:    #c9bfa9;                 /* muted on petroleo (rare) */
+  --fg-accent:       var(--rosa-pink);
+  --fg-accent-warm:  var(--laranja);
+
+  /* ---------- BORDERS / OUTLINES ---------- */
+  --outline-pink:    var(--rosa-pink);        /* primary outline color */
+  --outline-petroleo:var(--verde-petroleo);
+  --outline-orange:  var(--laranja);
+
+  /* ---------- TYPE ---------- */
+  --font-sans:    'DM Sans', system-ui, -apple-system, Segoe UI, sans-serif;
+  --font-serif:   'DM Serif Display', 'Adirek Serif', 'Bodoni Moda', serif;
+  --letter-tight: -0.02em;   /* DM Sans "letter spacing: -50" approx */
+  --letter-normal: 0;        /* Adirek Serif */
+
+  /* ---------- SPACING / GRID ---------- */
+  --margin-safety:    100px;   /* THE rule: 100px breathing on social pieces */
+  --margin-safety-sm: 24px;    /* scaled-down for web/dense UI */
+  --gap-1:  4px;
+  --gap-2:  8px;
+  --gap-3:  12px;
+  --gap-4:  16px;
+  --gap-5:  24px;
+  --gap-6:  32px;
+  --gap-7:  48px;
+  --gap-8:  64px;
+  --gap-9:  100px;
+
+  /* ---------- RADII ---------- */
+  /* The brand is built on RECTANGLES. Radii are tiny/never on brand rectangles. */
+  --radius-0:  0;       /* default for brand rectangles, photos, quote boxes */
+  --radius-sm: 4px;     /* small UI chips */
+  --radius-md: 8px;     /* buttons / inputs in product UI */
+  --radius-lg: 14px;    /* cards in product UI */
+  --radius-pill: 999px; /* circular avatar / pills */
+
+  /* ---------- ROTATION ---------- */
+  --tilt-cw:   5deg;
+  --tilt-ccw: -5deg;
+
+  /* ---------- SHADOWS ---------- */
+  /* The brand does NOT use drop shadows on social pieces.
+     These are for product UI (website / app) only. */
+  --shadow-1: 0 1px 2px rgba(14, 59, 62, 0.06);
+  --shadow-2: 0 6px 18px rgba(14, 59, 62, 0.10);
+  --shadow-3: 0 16px 40px rgba(14, 59, 62, 0.16);
+
+  /* ---------- MOTION ---------- */
+  --ease-out:    cubic-bezier(.2, .8, .2, 1);
+  --ease-in-out: cubic-bezier(.6, .04, .4, 1);
+  --dur-fast:   140ms;
+  --dur-base:   220ms;
+  --dur-slow:   420ms;
+}
+
+/* =========================================================
+   SEMANTIC STYLES — assign these to actual elements
+   ========================================================= */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg1);
+  font-family: var(--font-sans);
+  letter-spacing: var(--letter-tight);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Display: ALWAYS Adirek Serif (DM Serif Display fallback)
+       Used ONLY for short, keyword highlights inside a colored rectangle.
+       Never use for body. Size ~2× the DM Sans nearby. --- */
+.display, h1.display, .keyword {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: var(--letter-normal);
+  line-height: 1;
+  text-transform: lowercase;     /* "Sempre em caixa baixa" */
+  color: var(--fg1);
+}
+
+/* --- Sans headings: DM Sans bold, tight tracking --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: var(--letter-tight);
+  line-height: 1.1;
+  margin: 0;
+}
+h1 { font-size: clamp(40px, 5vw, 72px); }
+h2 { font-size: clamp(32px, 3.6vw, 52px); }
+h3 { font-size: clamp(24px, 2.6vw, 36px); }
+h4 { font-size: 22px; }
+h5 { font-size: 18px; }
+h6 { font-size: 16px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* Body */
+p, li, dd {
+  font-size: 17px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.lead { font-size: 20px; line-height: 1.5; }
+small, .caption { font-size: 13px; color: var(--fg2); }
+strong, b { font-weight: 700; }
+
+/* Hashtag / tag style (orange or pink on dark) */
+.hashtag {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--fg-accent-warm);
+}
+.hashtag--pink { color: var(--fg-accent); }
+
+/* Signature pill — @ricardjulie inside a solid rectangle, slightly tilted */
+.signature {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--rosa-claro);
+  background: var(--verde-salvia);
+  padding: 6px 14px;
+  letter-spacing: var(--letter-tight);
+  transform: rotate(var(--tilt-ccw));
+}
+
+/* =========================================================
+   BRAND RECTANGLES — the signature graphic element
+   Use .rect--solid for the loud layer, .rect--outline for the echo.
+   Always pair at least one solid + one outline. Tilt ±5°.
+   ========================================================= */
+
+.rect {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: var(--radius-0);
+}
+.rect--solid.rect--pink     { background: var(--rosa-pink);    color: var(--verde-petroleo); }
+.rect--solid.rect--orange   { background: var(--laranja);      color: var(--verde-petroleo); }
+.rect--solid.rect--petroleo { background: var(--verde-petroleo); color: var(--off-white); }
+.rect--solid.rect--salvia   { background: var(--verde-salvia); color: var(--off-white); }
+.rect--solid.rect--cream    { background: var(--off-white);    color: var(--verde-petroleo); }
+.rect--solid.rect--soft     { background: var(--rosa-claro);   color: var(--verde-petroleo); }
+
+.rect--outline { background: transparent; border: 2px solid currentColor; }
+.rect--outline.rect--pink     { color: var(--rosa-pink); }
+.rect--outline.rect--orange   { color: var(--laranja); }
+.rect--outline.rect--petroleo { color: var(--verde-petroleo); }
+.rect--outline.rect--cream    { color: var(--off-white); }
+
+.tilt-cw  { transform: rotate(var(--tilt-cw)); }
+.tilt-ccw { transform: rotate(var(--tilt-ccw)); }
+
+/* =========================================================
+   SELECTION / FOCUS
+   ========================================================= */
+::selection { background: var(--rosa-pink); color: var(--off-white); }
+:focus-visible {
+  outline: 2px solid var(--rosa-pink);
+  outline-offset: 3px;
+}

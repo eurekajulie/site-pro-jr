@@ -1,0 +1,77 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<Layout
+  title="Projetos — Julie Ricard"
+  description="Projetos de pesquisa em andamento de Julie Ricard."
+  active="projetos"
+>
+  <PageHero
+    icon="pesquisa"
+    kicker="pesquisa em andamento"
+    title="Projetos"
+    keyword="em curso"
+    subtitle="O que tô estudando agora, com quem, e onde isso vai parar."
+  />
+
+  <section class="empty">
+    <div class="empty__inner">
+      <div class="empty__rect"></div>
+      <h2>página em construção</h2>
+      <p>
+        Em breve: projetos de pesquisa atuais, colaborações, financiamentos
+        e o estágio de cada um. Por enquanto, novidades sobre os projetos
+        saem direto no <a href="/#atualizacoes">feed da home</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .empty {
+    padding: 120px 40px;
+    background: var(--off-white);
+  }
+  .empty__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .empty__rect {
+    position: absolute;
+    top: -30px;
+    left: -40px;
+    width: 240px;
+    height: 90px;
+    border: 2px solid var(--laranja);
+    transform: rotate(-5deg);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .empty h2 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 40px);
+    letter-spacing: var(--letter-tight);
+    color: var(--verde-petroleo);
+    margin: 0 0 18px;
+    position: relative;
+  }
+  .empty p {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--fg2);
+  }
+  .empty a {
+    color: var(--rosa-pink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 720px) {
+    .empty {
+      padding: 80px 24px;
+    }
+  }
+</style>

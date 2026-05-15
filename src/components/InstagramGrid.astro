@@ -1,0 +1,295 @@
+---
+// Placeholder do feed Instagram. Renderizado como mock dos posts no estilo da marca.
+// TODO: substituir por integração real com Instagram Graph API ou oEmbed quando tivermos token.
+
+const IG_POSTS = [
+  { id: 1, category: "ARTIGO", icon: "eureka", bg: "petroleo", lead: "Da teoria ao Telegram", keyword: "desinformação", keywordColor: "orange", likes: "2.1k", comments: "142" },
+  { id: 2, category: "FRASE", icon: "recomendacoes", bg: "soft", lead: "A gente precisa encarar a machosfera", keyword: "rede de ódio", keywordColor: "orange", likes: "4.8k", comments: "320" },
+  { id: 3, category: "NA MÍDIA", icon: "namidia", bg: "petroleo", lead: "Roda Viva, 27/04", keyword: "heterofatalismo", keywordColor: "pink", likes: "1.7k", comments: "88" },
+  { id: 4, category: "EUREKA", icon: "eureka", bg: "salvia", lead: "A tecnologia não é neutra", keyword: "estrutura de poder", keywordColor: "pink", likes: "3.4k", comments: "210" },
+  { id: 5, category: "DICA DE LEITURA", icon: "pesquisa", bg: "petroleo", lead: 'Em "Ada", um detetive é contratado para', keyword: "escrever romances", keywordColor: "orange", likes: "1.2k", comments: "74" },
+  { id: 6, category: "POR AÍ", icon: "porai", bg: "pink", lead: "Sábado em SP", keyword: "café com bell hooks", keywordColor: "cream", likes: "5.6k", comments: "402" },
+  { id: 7, category: "EVENTOS", icon: "eventos", bg: "petroleo", lead: 'ENANPAD 2026, mesa "Plataformas e gênero"', keyword: "inscrições abertas", keywordColor: "orange", likes: "910", comments: "54" },
+  { id: 8, category: "FRASE", icon: "recomendacoes", bg: "petroleo", lead: "a regulação das plataformas é uma", keyword: "questão feminista", keywordColor: "pink", likes: "6.2k", comments: "480" },
+  { id: 9, category: "DOMINGOU", icon: "domingou", bg: "soft", lead: "esta semana eu li", keyword: "algoritmos racistas", keywordColor: "orange", likes: "2.8k", comments: "160" },
+];
+
+const bgMap = {
+  petroleo: "var(--verde-petroleo)",
+  pink: "var(--rosa-pink)",
+  soft: "var(--rosa-claro)",
+  salvia: "var(--verde-salvia)",
+};
+
+const kColorMap = {
+  pink: { bg: "var(--rosa-pink)", fg: "var(--verde-petroleo)" },
+  orange: { bg: "var(--laranja)", fg: "var(--verde-petroleo)" },
+  soft: { bg: "var(--rosa-claro)", fg: "var(--verde-petroleo)" },
+  cream: { bg: "var(--off-white)", fg: "var(--verde-petroleo)" },
+};
+---
+
+<section class="ig">
+  <div class="ig__bleed-rect"></div>
+
+  <div class="ig__inner">
+    <div class="ig__head">
+      <h2 class="ig__title">
+        do{" "}
+        <span class="keyword">@ricardjulie</span>
+      </h2>
+      <a
+        href="https://instagram.com/ricardjulie"
+        target="_blank"
+        rel="noreferrer"
+        class="ig__follow"
+      >
+        seguir no Instagram →
+      </a>
+    </div>
+
+    <div class="ig__grid">
+      {
+        IG_POSTS.map((p) => {
+          const onDark = p.bg === "petroleo" || p.bg === "salvia";
+          const k = kColorMap[p.keywordColor];
+          return (
+            <a
+              href={`https://instagram.com/ricardjulie`}
+              target="_blank"
+              rel="noreferrer"
+              class="thumb"
+              style={`background: ${bgMap[p.bg]}; color: ${onDark ? "var(--off-white)" : "var(--verde-petroleo)"};`}
+            >
+              <div
+                class="thumb__echo"
+                style={`border-color: ${onDark ? "var(--rosa-pink)" : "var(--laranja)"};`}
+              ></div>
+              <div class="thumb__cat">
+                <div
+                  class="thumb__icon"
+                  style={`border-color: ${onDark ? "var(--off-white)" : "var(--verde-petroleo)"};`}
+                >
+                  <img src={`/assets/icons/${p.icon}.png`} alt="" />
+                </div>
+                <div class="thumb__cat-label">{p.category}</div>
+              </div>
+              <div class="thumb__lead">{p.lead}</div>
+              <span
+                class="thumb__key"
+                style={`background: ${k.bg}; color: ${k.fg};`}
+              >
+                {p.keyword}
+              </span>
+              <div class="thumb__sig">@ricardjulie</div>
+
+              <div class="thumb__hover">
+                <div class="thumb__stats">
+                  <span class="thumb__hearts">♥ {p.likes}</span>
+                  <span class="thumb__comments">💬 {p.comments}</span>
+                </div>
+                <div class="thumb__cta">ver no Instagram →</div>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .ig {
+    background: var(--rosa-claro);
+    padding: 120px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ig__bleed-rect {
+    position: absolute;
+    top: 80px;
+    right: -100px;
+    width: 600px;
+    height: 120px;
+    border: 2px solid var(--verde-petroleo);
+    transform: rotate(5deg);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .ig__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .ig__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  .ig__title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.02;
+    letter-spacing: var(--letter-tight);
+    color: var(--verde-petroleo);
+    margin: 0;
+  }
+  .ig__title .keyword {
+    display: inline-block;
+    font-family: var(--font-serif);
+    text-transform: lowercase;
+    background: var(--verde-petroleo);
+    color: var(--off-white);
+    padding: 2px 14px;
+    transform: rotate(-3deg);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .ig__follow {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--verde-petroleo);
+    text-decoration: underline;
+    text-decoration-color: var(--rosa-pink);
+    text-underline-offset: 4px;
+  }
+
+  .ig__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .thumb {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    padding: 18px;
+    font-family: var(--font-sans);
+  }
+  .thumb__echo {
+    position: absolute;
+    top: 90px;
+    left: -20px;
+    right: -20px;
+    height: 90px;
+    border-width: 2px;
+    border-style: solid;
+    transform: rotate(-5deg);
+  }
+  .thumb__cat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 2;
+  }
+  .thumb__icon {
+    width: 22px;
+    height: 22px;
+    border-width: 1.5px;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+  }
+  .thumb__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .thumb__cat-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: var(--letter-tight);
+  }
+  .thumb__lead {
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: var(--letter-tight);
+    position: relative;
+    z-index: 2;
+  }
+  .thumb__key {
+    margin-top: 6px;
+    align-self: flex-start;
+    display: inline-block;
+    font-family: var(--font-serif);
+    text-transform: lowercase;
+    padding: 1px 8px;
+    font-size: 22px;
+    line-height: 1;
+    transform: rotate(-5deg);
+    position: relative;
+    z-index: 3;
+  }
+  .thumb__sig {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    background: var(--laranja);
+    color: var(--off-white);
+    font-size: 9px;
+    padding: 2px 6px;
+    transform: rotate(-5deg);
+    font-weight: 500;
+  }
+
+  .thumb__hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 59, 62, 0.85);
+    color: var(--off-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+  .thumb:hover .thumb__hover {
+    opacity: 1;
+  }
+  .thumb__stats {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: var(--letter-tight);
+  }
+  .thumb__hearts {
+    color: var(--rosa-pink);
+  }
+  .thumb__comments {
+    color: var(--rosa-claro);
+  }
+  .thumb__cta {
+    font-size: 15px;
+    margin-top: 8px;
+    font-weight: 700;
+    letter-spacing: var(--letter-tight);
+    line-height: 1.2;
+  }
+
+  @media (max-width: 720px) {
+    .ig {
+      padding: 80px 24px;
+    }
+    .ig__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+  }
+</style>

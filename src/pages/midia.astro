@@ -1,0 +1,77 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<Layout
+  title="Mídia — Julie Ricard"
+  description="Entrevistas, podcasts e participações em mídia de Julie Ricard."
+  active="midia"
+>
+  <PageHero
+    icon="namidia"
+    kicker="entrevistas e cobertura"
+    title="Na"
+    keyword="mídia"
+    subtitle="Entrevistas, podcasts, menções e participações."
+  />
+
+  <section class="empty">
+    <div class="empty__inner">
+      <div class="empty__rect"></div>
+      <h2>arquivo de mídia em montagem</h2>
+      <p>
+        Em breve: lista completa de entrevistas, podcasts e participações —
+        com links pros vídeos/áudios e datas. Por enquanto, as aparições
+        recentes ficam no <a href="/#atualizacoes">feed da home</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .empty {
+    padding: 120px 40px;
+    background: var(--off-white);
+  }
+  .empty__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .empty__rect {
+    position: absolute;
+    top: -30px;
+    left: -40px;
+    width: 240px;
+    height: 90px;
+    border: 2px solid var(--rosa-pink);
+    transform: rotate(5deg);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .empty h2 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 40px);
+    letter-spacing: var(--letter-tight);
+    color: var(--verde-petroleo);
+    margin: 0 0 18px;
+    position: relative;
+  }
+  .empty p {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--fg2);
+  }
+  .empty a {
+    color: var(--rosa-pink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 720px) {
+    .empty {
+      padding: 80px 24px;
+    }
+  }
+</style>

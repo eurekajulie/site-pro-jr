@@ -1,0 +1,112 @@
+---
+interface Props {
+  icon: string;
+  kicker: string;
+  title: string;
+  keyword?: string;
+  subtitle?: string;
+}
+
+const { icon, kicker, title, keyword, subtitle } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero__echo"></div>
+  <div class="page-hero__inner">
+    <div class="page-hero__icon">
+      <img src={`/assets/icons/${icon}.png`} alt="" />
+    </div>
+    <div class="page-hero__kicker">{kicker}</div>
+    <h1 class="page-hero__title">
+      {title}
+      {keyword && <span class="keyword">{keyword}</span>}
+    </h1>
+    {subtitle && <p class="page-hero__subtitle">{subtitle}</p>}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    background: var(--verde-petroleo);
+    color: var(--off-white);
+    position: relative;
+    overflow: hidden;
+    padding: 80px 40px 96px;
+  }
+  .page-hero__echo {
+    position: absolute;
+    top: 60px;
+    right: -80px;
+    width: min(900px, 70%);
+    height: 180px;
+    border: 2px solid var(--rosa-pink);
+    transform: rotate(5deg);
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  .page-hero__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .page-hero__icon {
+    width: 72px;
+    height: 72px;
+    background: var(--off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 24px;
+  }
+  .page-hero__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .page-hero__kicker {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--rosa-pink);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 14px;
+  }
+  .page-hero__title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1.02;
+    letter-spacing: var(--letter-tight);
+    margin: 0;
+    max-width: 820px;
+  }
+  .page-hero__title .keyword {
+    display: inline-block;
+    font-family: var(--font-serif);
+    text-transform: lowercase;
+    background: var(--rosa-pink);
+    color: var(--verde-petroleo);
+    padding: 2px 14px;
+    transform: rotate(-3deg);
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1;
+    margin-left: 6px;
+  }
+  .page-hero__subtitle {
+    font-size: 19px;
+    line-height: 1.5;
+    margin-top: 22px;
+    opacity: 0.8;
+    max-width: 680px;
+  }
+
+  @media (max-width: 720px) {
+    .page-hero {
+      padding: 56px 24px 72px;
+    }
+  }
+</style>

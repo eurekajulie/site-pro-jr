@@ -1,0 +1,52 @@
+---
+import "../styles/tokens.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  active?: "home" | "publicacoes" | "projetos" | "midia";
+}
+
+const {
+  title,
+  description = "Julie Ricard — pesquisadora e militante. Pesquisa acadêmica sobre plataformas, desinformação, feminismos e tecnologia.",
+  active = "home",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header active={active} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--off-white);
+  }
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  a {
+    color: inherit;
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+interface Props {
+  active?: "home" | "publicacoes" | "projetos" | "midia";
+}
+
+const { active = "home" } = Astro.props;
+
+const links = [
+  { id: "home", label: "Início", href: "/" },
+  { id: "publicacoes", label: "Publicações", href: "/publicacoes" },
+  { id: "projetos", label: "Projetos", href: "/projetos" },
+  { id: "midia", label: "Mídia", href: "/midia" },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="/" class="wordmark">
+      <span class="wordmark__name">julie ricard</span>
+      <span class="wordmark__tag">@ricardjulie</span>
+    </a>
+
+    <nav class="nav">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class:list={["nav__link", { "nav__link--active": active === l.id }]}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--off-white);
+    border-bottom: 1px solid rgba(14, 59, 62, 0.1);
+    backdrop-filter: saturate(180%);
+  }
+
+  .site-header__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .wordmark__name {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    color: var(--verde-petroleo);
+    line-height: 1;
+    text-transform: lowercase;
+  }
+
+  .wordmark__tag {
+    background: var(--rosa-pink);
+    color: var(--verde-petroleo);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 11px;
+    padding: 3px 6px;
+    transform: rotate(-5deg);
+    display: inline-block;
+    letter-spacing: var(--letter-tight);
+  }
+
+  .nav {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+    align-items: center;
+  }
+
+  .nav__link {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: var(--letter-tight);
+    color: var(--verde-petroleo);
+    padding: 8px 14px;
+    text-decoration: none;
+    background: transparent;
+    border-radius: var(--radius-md);
+    transition: background var(--dur-fast) var(--ease-out);
+  }
+
+  .nav__link:hover {
+    background: rgba(14, 59, 62, 0.05);
+  }
+
+  .nav__link--active,
+  .nav__link--active:hover {
+    background: rgba(232, 56, 138, 0.14);
+  }
+
+  @media (max-width: 720px) {
+    .site-header__inner {
+      padding: 14px 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .nav {
+      margin-left: 0;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .nav__link {
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+  }
+</style>

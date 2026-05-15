@@ -1,0 +1,245 @@
+---
+const TEMAS = [
+  { id: "plataformas", label: "Plataformas", color: "pink" },
+  { id: "desinformacao", label: "Desinformação", color: "orange" },
+  { id: "feminismos", label: "Feminismos", color: "soft" },
+  { id: "machosfera", label: "Machosfera", color: "pink" },
+  { id: "algoritmos", label: "Algoritmos", color: "orange" },
+  { id: "regulacao", label: "Regulação", color: "soft" },
+  { id: "metodos", label: "Métodos digitais", color: "pink" },
+];
+
+const colorBg = {
+  pink: "var(--rosa-pink)",
+  orange: "var(--laranja)",
+  soft: "var(--rosa-claro)",
+};
+---
+
+<section id="home" class="home-intro">
+  <div class="echo-rect"></div>
+
+  <div class="home-intro__grid">
+    <div>
+      <div class="kicker">oi, eu sou a julie</div>
+
+      <h1 class="lede">
+        Pesquisadora e militante.<br />
+        Traduzo pesquisa acadêmica em conteúdo que expõe como{" "}
+        <span class="keyword keyword--orange">capitalismo e tecnologia</span>{" "}
+        sustentam estruturas de opressão.
+      </h1>
+
+      <p class="sub">
+        Pesquisadora na <strong>FGV / Data-Pop Alliance</strong>.
+        Aqui você encontra meus artigos, projetos em andamento, recortes de
+        entrevistas e os bastidores do que tô estudando agora.
+      </p>
+
+      <div class="themes">
+        <div class="themes__label">temas que trabalho</div>
+        <div class="themes__chips">
+          {
+            TEMAS.map((t, i) => (
+              <a
+                href={`/publicacoes#${t.id}`}
+                class:list={["chip", `chip--${i % 2 === 0 ? "cw" : "ccw"}`]}
+                style={`background: ${colorBg[t.color]}`}
+              >
+                {t.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="portrait">
+      <div class="portrait__pink"></div>
+      <div class="portrait__salvia"></div>
+      <img
+        src="/assets/photos/julie-cutout.png"
+        alt="Julie Ricard"
+        class="portrait__img"
+      />
+      <div class="portrait__pin">@ricardjulie</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .home-intro {
+    background: var(--verde-petroleo);
+    color: var(--off-white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .echo-rect {
+    position: absolute;
+    top: 280px;
+    left: -120px;
+    width: min(1400px, 95%);
+    height: 240px;
+    border: 3px solid var(--rosa-pink);
+    transform: rotate(-5deg);
+    pointer-events: none;
+  }
+
+  .home-intro__grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 96px 40px 80px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .kicker {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--rosa-pink);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 22px;
+  }
+
+  .lede {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(40px, 5.6vw, 76px);
+    line-height: 1.02;
+    letter-spacing: var(--letter-tight);
+    margin: 0;
+    max-width: 760px;
+  }
+
+  .keyword {
+    display: inline-block;
+    font-family: var(--font-serif);
+    text-transform: lowercase;
+    color: var(--verde-petroleo);
+    padding: 4px 18px;
+    transform: rotate(-3deg);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .keyword--orange {
+    background: var(--laranja);
+  }
+
+  .sub {
+    font-size: 19px;
+    line-height: 1.5;
+    max-width: 620px;
+    margin-top: 32px;
+    opacity: 0.85;
+  }
+  .sub strong {
+    color: var(--rosa-claro);
+  }
+
+  .themes {
+    margin-top: 36px;
+  }
+  .themes__label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--rosa-pink);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 14px;
+  }
+  .themes__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    color: var(--verde-petroleo);
+    padding: 8px 14px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: var(--letter-tight);
+    display: inline-block;
+    text-decoration: none;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .chip--cw {
+    transform: rotate(2deg);
+  }
+  .chip--ccw {
+    transform: rotate(-2deg);
+  }
+  .chip--cw:hover {
+    transform: rotate(5deg);
+  }
+  .chip--ccw:hover {
+    transform: rotate(-5deg);
+  }
+
+  .portrait {
+    position: relative;
+    min-height: 460px;
+    margin-top: 20px;
+  }
+  .portrait__pink {
+    position: absolute;
+    top: 30px;
+    right: -10px;
+    bottom: -30px;
+    left: 0;
+    background: var(--rosa-pink);
+    transform: rotate(5deg);
+    z-index: 1;
+  }
+  .portrait__salvia {
+    position: absolute;
+    top: -20px;
+    right: 40px;
+    bottom: 30px;
+    left: 50px;
+    background: var(--verde-salvia);
+    transform: rotate(-3deg);
+    z-index: 0;
+  }
+  .portrait__img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .portrait__pin {
+    position: absolute;
+    bottom: -30px;
+    right: -10px;
+    background: var(--laranja);
+    color: var(--verde-petroleo);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 14px;
+    padding: 6px 12px;
+    transform: rotate(-5deg);
+    letter-spacing: var(--letter-tight);
+    z-index: 3;
+  }
+
+  @media (max-width: 900px) {
+    .home-intro__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 64px 24px 56px;
+    }
+    .portrait {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+  }
+</style>
