@@ -1,0 +1,15 @@
+{
+  "name": "site-pro-jr-admin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Admin local — ingere link, extrai metadados, atualiza content.json e gera pacote Lattes",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.0",
+    "hono": "^4.6.0",
+    "unfurl.js": "^6.4.0"
+  }
+}

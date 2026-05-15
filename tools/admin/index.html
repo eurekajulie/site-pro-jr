@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>admin — site-pro-jr</title>
+<link rel="stylesheet" href="/tokens.css">
+<style>
+  body { background: var(--verde-petroleo); color: var(--off-white); margin: 0; padding: 0; min-height: 100vh; }
+  * { box-sizing: border-box; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 40px 80px; }
+  header.top { display: flex; align-items: baseline; gap: 14px; margin-bottom: 48px; }
+  .word { font-family: var(--font-serif); font-size: 36px; line-height: 1; text-transform: lowercase; }
+  .tag { background: var(--rosa-pink); color: var(--verde-petroleo); font-family: var(--font-sans); font-weight: 500; font-size: 12px; padding: 4px 8px; transform: rotate(-3deg); display: inline-block; letter-spacing: var(--letter-tight); }
+  h1.title { font-family: var(--font-sans); font-weight: 700; font-size: 48px; line-height: 1.02; letter-spacing: var(--letter-tight); margin: 0 0 12px; }
+  h1.title .kw { display: inline-block; font-family: var(--font-serif); text-transform: lowercase; background: var(--rosa-pink); color: var(--verde-petroleo); padding: 2px 12px; transform: rotate(-3deg); font-weight: 400; line-height: 1; }
+  p.sub { font-size: 17px; line-height: 1.5; opacity: 0.8; margin: 0 0 40px; max-width: 600px; }
+  .kicker { font-family: var(--font-sans); font-size: 12px; font-weight: 500; color: var(--rosa-pink); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 14px; }
+  .step { margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(243, 232, 217, 0.18); }
+  .step--hidden { display: none; }
+  .row { display: grid; grid-template-columns: 1fr 200px; gap: 16px; align-items: end; }
+  .row--full { grid-template-columns: 1fr; }
+  .row--2col { grid-template-columns: 1fr 1fr; }
+  label { display: flex; flex-direction: column; gap: 6px; }
+  .field-label { font-family: var(--font-sans); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--rosa-claro); }
+  input, select, textarea { font-family: var(--font-sans); font-size: 16px; letter-spacing: var(--letter-tight); color: var(--off-white); background: transparent; border: 0; border-bottom: 2px solid rgba(243, 232, 217, 0.3); padding: 10px 0; width: 100%; }
+  input:focus, select:focus, textarea:focus { outline: none; border-bottom-color: var(--rosa-pink); }
+  input::placeholder, textarea::placeholder { color: rgba(243, 232, 217, 0.4); }
+  textarea { border: 2px solid rgba(243, 232, 217, 0.3); padding: 14px; resize: vertical; min-height: 90px; }
+  textarea:focus { border-color: var(--rosa-pink); }
+  select option { background: var(--verde-petroleo); color: var(--off-white); }
+  button { font-family: var(--font-sans); font-weight: 700; font-size: 14px; letter-spacing: var(--letter-tight); padding: 14px 24px; border-radius: var(--radius-md); border: 0; cursor: pointer; transition: background var(--dur-fast) var(--ease-out); }
+  .btn-primary { background: var(--rosa-pink); color: var(--verde-petroleo); }
+  .btn-primary:hover { background: var(--pink-hover); }
+  .btn-primary:disabled { opacity: 0.5; cursor: wait; }
+  .btn-secondary { background: transparent; color: var(--off-white); border: 2px solid rgba(243, 232, 217, 0.3); }
+  .btn-secondary:hover { border-color: var(--rosa-pink); }
+  .btn-row { display: flex; gap: 12px; margin-top: 24px; align-items: center; }
+  .badge { display: inline-block; background: var(--laranja); color: var(--verde-petroleo); font-family: var(--font-sans); font-weight: 500; font-size: 11px; padding: 3px 8px; transform: rotate(-3deg); letter-spacing: var(--letter-tight); }
+  .error { background: var(--rosa-pink); color: var(--verde-petroleo); padding: 12px 16px; font-size: 14px; font-weight: 500; margin-top: 16px; }
+  .success { background: var(--laranja); color: var(--verde-petroleo); padding: 16px 20px; font-size: 15px; font-weight: 700; margin-bottom: 24px; }
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 24px; }
+  .field-grid label.f-full { grid-column: 1 / -1; }
+  .lattes-card { background: var(--off-white); color: var(--verde-petroleo); padding: 28px; margin-top: 32px; position: relative; }
+  .lattes-card__title { font-family: var(--font-sans); font-weight: 700; font-size: 22px; margin: 0 0 4px; letter-spacing: var(--letter-tight); }
+  .lattes-card__sub { font-size: 13px; color: var(--fg2); margin-bottom: 20px; }
+  .lattes-row { display: grid; grid-template-columns: 200px 1fr auto; gap: 16px; padding: 10px 0; border-top: 1px solid rgba(14, 59, 62, 0.12); align-items: center; }
+  .lattes-row:first-of-type { border-top: 0; }
+  .lattes-row__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--rosa-pink); }
+  .lattes-row__value { font-size: 15px; line-height: 1.4; word-break: break-word; }
+  .lattes-row__value--empty { color: rgba(14, 59, 62, 0.4); font-style: italic; }
+  .copy-btn { background: var(--verde-petroleo); color: var(--off-white); padding: 6px 12px; font-size: 11px; font-weight: 700; border-radius: var(--radius-sm); border: 0; cursor: pointer; }
+  .copy-btn:hover { background: var(--petroleo-hover); }
+  .copy-btn.copied { background: var(--laranja); color: var(--verde-petroleo); }
+  .lattes-note { background: var(--rosa-claro); color: var(--verde-petroleo); padding: 14px 18px; font-size: 13px; line-height: 1.5; margin-top: 20px; }
+  @media (max-width: 720px) {
+    .wrap { padding: 32px 20px; }
+    .row, .row--2col, .field-grid { grid-template-columns: 1fr; }
+    .lattes-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <span class="word">julie ricard</span>
+    <span class="tag">admin</span>
+  </header>
+
+  <div class="kicker">cole um link, eu cuido do resto</div>
+  <h1 class="title">Adicionar uma <span class="kw">entrada nova</span></h1>
+  <p class="sub">Funciona pra artigos com DOI, papers no arXiv, vídeos no YouTube, podcasts no Spotify e qualquer URL com OpenGraph (jornais, blogs, etc.). O site é atualizado na hora.</p>
+
+  <!-- Step 1: URL + type -->
+  <section id="step-1" class="step">
+    <div class="row">
+      <label>
+        <span class="field-label">URL</span>
+        <input id="url" type="url" placeholder="https://..." autofocus>
+      </label>
+      <label>
+        <span class="field-label">tipo (palpite)</span>
+        <select id="typeHint">
+          <option value="">auto-detectar</option>
+          <option value="academic">artigo acadêmico</option>
+          <option value="reports">relatório / nota técnica</option>
+          <option value="authored_media">artigo autoral em mídia</option>
+          <option value="talks">palestra / apresentação</option>
+          <option value="mentions">entrevista / menção na mídia</option>
+        </select>
+      </label>
+    </div>
+    <div class="btn-row">
+      <button id="ingest" class="btn-primary">Carregar metadados →</button>
+      <span id="ingest-status" style="font-size:13px;opacity:.7"></span>
+    </div>
+    <div id="ingest-error"></div>
+  </section>
+
+  <!-- Step 2: Preview / edit -->
+  <section id="step-2" class="step step--hidden">
+    <div class="kicker">passo 2 de 2</div>
+    <h2 style="font-family:var(--font-sans);font-weight:700;font-size:28px;letter-spacing:var(--letter-tight);margin:0 0 8px">
+      Confirmar e <span class="kw" style="display:inline-block;font-family:var(--font-serif);text-transform:lowercase;background:var(--laranja);color:var(--verde-petroleo);padding:1px 10px;transform:rotate(-3deg);font-weight:400">salvar</span>
+    </h2>
+    <p style="font-size:14px;opacity:.7;margin:0">
+      Detectado via <span id="source-badge" class="badge">opengraph</span>. Edite o que precisar — campos vazios são ignorados.
+    </p>
+
+    <div class="field-grid">
+      <label class="f-full">
+        <span class="field-label">tipo do conteúdo</span>
+        <select id="f-type">
+          <option value="academic">artigo acadêmico</option>
+          <option value="reports">relatório / nota técnica</option>
+          <option value="authored_media">artigo autoral em mídia</option>
+          <option value="talks">palestra / apresentação</option>
+          <option value="mentions">entrevista / menção na mídia</option>
+        </select>
+      </label>
+
+      <label class="f-full">
+        <span class="field-label">título</span>
+        <input id="f-title" type="text">
+      </label>
+
+      <label class="f-full" data-when="academic reports authored_media">
+        <span class="field-label">autores (separados por vírgula)</span>
+        <input id="f-authors" type="text" placeholder="Ricard, Julie; Cugler, Ergon">
+      </label>
+
+      <label data-when="academic reports">
+        <span class="field-label">periódico / projeto</span>
+        <input id="f-venue" type="text" placeholder="Information, Communication & Society">
+      </label>
+
+      <label data-when="authored_media mentions">
+        <span class="field-label">veículo</span>
+        <input id="f-outlet" type="text" placeholder="Folha de S. Paulo">
+      </label>
+
+      <label data-when="talks">
+        <span class="field-label">evento</span>
+        <input id="f-event" type="text" placeholder="ENANPAD 2026">
+      </label>
+
+      <label data-when="talks">
+        <span class="field-label">local</span>
+        <input id="f-location" type="text" placeholder="São Paulo, SP">
+      </label>
+
+      <label data-when="mentions">
+        <span class="field-label">formato</span>
+        <select id="f-format">
+          <option value="Video">Vídeo</option>
+          <option value="Audio">Áudio / Podcast</option>
+          <option value="Texto">Texto</option>
+        </select>
+      </label>
+
+      <label data-when="mentions">
+        <span class="field-label">afiliação mencionada</span>
+        <input id="f-affiliation" type="text" placeholder="DesinfoPop">
+      </label>
+
+      <label>
+        <span class="field-label">ano</span>
+        <input id="f-year" type="number" min="1990" max="2099">
+      </label>
+
+      <label>
+        <span class="field-label">mês (1-12)</span>
+        <input id="f-month" type="number" min="1" max="12">
+      </label>
+
+      <label class="f-full">
+        <span class="field-label">link</span>
+        <input id="f-link" type="url">
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button id="save" class="btn-primary">Salvar entrada</button>
+      <button id="cancel" class="btn-secondary">Cancelar</button>
+    </div>
+    <div id="save-error"></div>
+  </section>
+
+  <!-- Step 3: Success + Lattes package -->
+  <section id="step-3" class="step step--hidden">
+    <div id="success" class="success">✓ Entrada salva no site!</div>
+
+    <div class="kicker">próximo passo: lattes</div>
+    <h2 style="font-family:var(--font-sans);font-weight:700;font-size:28px;letter-spacing:var(--letter-tight);margin:0 0 16px">
+      Pacote pra <span class="kw" style="display:inline-block;font-family:var(--font-serif);text-transform:lowercase;background:var(--rosa-pink);color:var(--verde-petroleo);padding:1px 10px;transform:rotate(-3deg);font-weight:400">colar no lattes</span>
+    </h2>
+
+    <div id="lattes-card" class="lattes-card"></div>
+
+    <div class="btn-row">
+      <button id="add-another" class="btn-primary">+ Adicionar outra entrada</button>
+      <a href="http://localhost:4321" target="_blank" class="btn-secondary" style="text-decoration:none;display:inline-block;line-height:1">Ver no site →</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const show = (el) => el.classList.remove("step--hidden");
+const hide = (el) => el.classList.add("step--hidden");
+
+let lastIngest = null;
+
+function setError(node, msg) {
+  node.innerHTML = msg ? `<div class="error">${msg}</div>` : "";
+}
+
+function syncFieldVisibility() {
+  const t = $("f-type").value;
+  document.querySelectorAll("[data-when]").forEach((el) => {
+    const types = el.getAttribute("data-when").split(/\s+/);
+    el.style.display = types.includes(t) ? "" : "none";
+  });
+}
+
+$("f-type").addEventListener("change", syncFieldVisibility);
+
+$("ingest").addEventListener("click", async () => {
+  setError($("ingest-error"), "");
+  const url = $("url").value.trim();
+  const typeHint = $("typeHint").value;
+  if (!url) { setError($("ingest-error"), "Cola uma URL primeiro."); return; }
+
+  const btn = $("ingest");
+  btn.disabled = true;
+  $("ingest-status").textContent = "buscando metadados…";
+
+  try {
+    const r = await fetch("/api/ingest", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url, typeHint }),
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || "Falha na ingestão");
+
+    lastIngest = data;
+    $("source-badge").textContent = data.source || "auto";
+    $("f-type").value = data.suggestedType || typeHint || "mentions";
+    $("f-title").value = data.title || "";
+    $("f-authors").value = data.authors || "";
+    $("f-venue").value = data.venue || "";
+    $("f-outlet").value = data.outlet || data.venue || "";
+    $("f-event").value = data.event || "";
+    $("f-location").value = data.location || "";
+    $("f-format").value = data.format || "Texto";
+    $("f-affiliation").value = data.affiliation || "";
+    $("f-year").value = data.year || "";
+    $("f-month").value = data.month || "";
+    $("f-link").value = data.link || url;
+
+    syncFieldVisibility();
+    show($("step-2"));
+    $("step-2").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (e) {
+    setError($("ingest-error"), e.message);
+  } finally {
+    btn.disabled = false;
+    $("ingest-status").textContent = "";
+  }
+});
+
+$("cancel").addEventListener("click", () => {
+  hide($("step-2"));
+  $("url").focus();
+});
+
+$("save").addEventListener("click", async () => {
+  setError($("save-error"), "");
+  const entry = {
+    type: $("f-type").value,
+    title: $("f-title").value,
+    authors: $("f-authors").value,
+    venue: $("f-venue").value,
+    outlet: $("f-outlet").value,
+    event: $("f-event").value,
+    location: $("f-location").value,
+    format: $("f-format").value,
+    affiliation: $("f-affiliation").value,
+    year: $("f-year").value ? parseInt($("f-year").value, 10) : undefined,
+    month: $("f-month").value ? parseInt($("f-month").value, 10) : undefined,
+    link: $("f-link").value,
+  };
+
+  const btn = $("save");
+  btn.disabled = true;
+  try {
+    const r = await fetch("/api/save", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(entry),
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || "Falha ao salvar");
+    renderLattes(data.lattes);
+    hide($("step-2"));
+    show($("step-3"));
+    $("step-3").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (e) {
+    setError($("save-error"), e.message);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+function renderLattes(pkg) {
+  const card = $("lattes-card");
+  if (!pkg) { card.innerHTML = ""; return; }
+  const rows = pkg.campos.map(([label, value]) => {
+    const v = value ?? "";
+    const empty = v === "" || v == null;
+    const safeValue = String(v).replace(/[<>&"]/g, (ch) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;" }[ch]));
+    return `
+      <div class="lattes-row">
+        <div class="lattes-row__label">${label}</div>
+        <div class="lattes-row__value ${empty ? "lattes-row__value--empty" : ""}">${empty ? "—" : safeValue}</div>
+        <button class="copy-btn" ${empty ? "disabled" : ""} data-copy="${safeValue}">copiar</button>
+      </div>
+    `;
+  }).join("");
+  card.innerHTML = `
+    <h3 class="lattes-card__title">${pkg.titulo}</h3>
+    <div class="lattes-card__sub">campos prontos pra colar no formulário do Lattes</div>
+    ${rows}
+    ${pkg.observacao ? `<div class="lattes-note">${pkg.observacao}</div>` : ""}
+  `;
+  card.querySelectorAll(".copy-btn[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const val = btn.getAttribute("data-copy");
+      try {
+        await navigator.clipboard.writeText(val);
+        btn.textContent = "copiado ✓";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.textContent = "copiar";
+          btn.classList.remove("copied");
+        }, 1400);
+      } catch {}
+    });
+  });
+}
+
+$("add-another").addEventListener("click", () => {
+  $("url").value = "";
+  $("typeHint").value = "";
+  hide($("step-3"));
+  hide($("step-2"));
+  $("url").focus();
+  document.querySelector(".wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+// Init
+syncFieldVisibility();
+</script>
+
+</body>
+</html>
