@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Fontes de dados (CV LaTeX, CSVs, planilhas) — não publicar
+_source/

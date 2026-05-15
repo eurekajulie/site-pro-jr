@@ -3,10 +3,66 @@ import Layout from "../layouts/Layout.astro";
 import HomeIntro from "../components/HomeIntro.astro";
 import UpdatesFeed from "../components/UpdatesFeed.astro";
 import InstagramGrid from "../components/InstagramGrid.astro";
+import ContactForm from "../components/ContactForm.astro";
+import content from "../data/content.json";
+
+type ContentItem = {
+  title?: string;
+  event?: string;
+  outlet?: string;
+  location?: string;
+  link?: string;
+  format?: string;
+  year?: number;
+  month?: number;
+  date_display?: string;
+};
+
+const slug = (s: string | undefined) =>
+  (s ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 40);
+
+const mentions = (content.mentions as ContentItem[]).map((m) => ({
+  id: "mention-" + slug(m.title),
+  type: m.format === "Audio" ? "podcast" : "midia",
+  when: m.date_display,
+  where: m.outlet,
+  title: m.title ?? "",
+  href: m.link,
+  _year: m.year ?? 0,
+  _month: m.month ?? 0,
+}));
+
+const authored = (content.authored_media as ContentItem[]).map((m) => ({
+  id: "auth-" + slug(m.title),
+  type: "artigo",
+  when: m.date_display,
+  where: m.outlet,
+  title: m.title ?? "",
+  href: m.link,
+  _year: m.year ?? 0,
+  _month: m.month ?? 0,
+}));
+
+const talks = (content.talks as ContentItem[]).map((m) => ({
+  id: "talk-" + slug(m.title || m.event),
+  type: "palestra",
+  when: m.date_display,
+  where: [m.event, m.location].filter(Boolean).join(" · "),
+  title: m.title || m.event || "",
+  href: m.link,
+  _year: m.year ?? 0,
+  _month: m.month ?? 0,
+}));
+
+const recentUpdates = [...mentions, ...authored, ...talks]
+  .filter((u) => u.title)
+  .sort((a, b) => b._year - a._year || b._month - a._month)
+  .slice(0, 6);
 ---
 
 <Layout title="Julie Ricard — pesquisadora e militante" active="home">
   <HomeIntro />
-  <UpdatesFeed />
+  <UpdatesFeed updates={recentUpdates} />
   <InstagramGrid />
+  <ContactForm />
 </Layout>

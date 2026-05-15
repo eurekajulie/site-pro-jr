@@ -1,0 +1,262 @@
+---
+// CONFIGURAÇÃO: cole aqui o endpoint do Formspree depois que criar a conta.
+// 1. Acesse https://formspree.io e crie conta gratuita
+// 2. New Form → escolha o email destinatário (juliec.ricard@gmail.com)
+// 3. Copie a URL do endpoint (algo como https://formspree.io/f/xxxxxxxx) e cole abaixo.
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+---
+
+<section id="contato" class="contact">
+  <div class="contact__echo"></div>
+
+  <div class="contact__inner">
+    <div class="contact__copy">
+      <div class="kicker">vamos conversar</div>
+      <h2 class="contact__title">
+        Me{" "}
+        <span class="keyword">manda uma mensagem</span>
+      </h2>
+      <p class="contact__lead">
+        Imprensa, palestras, colaborações acadêmicas, parcerias e tudo o mais
+        — preencha aí que eu respondo. Pra contato rápido, também tô no{" "}
+        <a href="https://www.instagram.com/ricardjulie/" target="_blank" rel="noreferrer">Instagram</a>
+        {" "}e no{" "}
+        <a href="https://www.linkedin.com/in/ricardjulie/" target="_blank" rel="noreferrer">LinkedIn</a>.
+      </p>
+    </div>
+
+    <form class="contact__form" action={FORMSPREE_ENDPOINT} method="POST">
+      <label class="field">
+        <span class="field__label">nome</span>
+        <input
+          type="text"
+          name="nome"
+          required
+          autocomplete="name"
+          placeholder="seu nome"
+        />
+      </label>
+
+      <label class="field">
+        <span class="field__label">e-mail</span>
+        <input
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          placeholder="email@exemplo.com"
+        />
+      </label>
+
+      <label class="field">
+        <span class="field__label">assunto</span>
+        <select name="assunto" required>
+          <option value="">o que você quer falar?</option>
+          <option value="imprensa">imprensa / entrevista</option>
+          <option value="palestra">palestra ou evento</option>
+          <option value="academia">colaboração acadêmica</option>
+          <option value="consultoria">consultoria</option>
+          <option value="outro">outro</option>
+        </select>
+      </label>
+
+      <label class="field field--full">
+        <span class="field__label">mensagem</span>
+        <textarea
+          name="mensagem"
+          rows="5"
+          required
+          placeholder="me conta um pouco sobre o que você precisa"
+        ></textarea>
+      </label>
+
+      <input type="hidden" name="_subject" value="Novo contato pelo site" />
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+      <button type="submit" class="contact__submit">
+        Enviar mensagem
+      </button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--verde-petroleo);
+    color: var(--off-white);
+    padding: 120px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact__echo {
+    position: absolute;
+    top: 120px;
+    right: -100px;
+    width: min(900px, 70%);
+    height: 200px;
+    border: 3px solid var(--laranja);
+    transform: rotate(5deg);
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .contact__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 64px;
+    align-items: start;
+    position: relative;
+    z-index: 2;
+  }
+  .kicker {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--rosa-pink);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 20px;
+  }
+  .contact__title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, 60px);
+    line-height: 1.02;
+    letter-spacing: var(--letter-tight);
+    margin: 0;
+  }
+  .contact__title .keyword {
+    display: inline-block;
+    font-family: var(--font-serif);
+    text-transform: lowercase;
+    background: var(--rosa-pink);
+    color: var(--verde-petroleo);
+    padding: 2px 14px;
+    transform: rotate(-3deg);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .contact__lead {
+    font-size: 18px;
+    line-height: 1.55;
+    margin-top: 22px;
+    opacity: 0.85;
+    max-width: 460px;
+  }
+  .contact__lead a {
+    color: var(--rosa-claro);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .contact__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field--full {
+    grid-column: 1 / -1;
+  }
+  .field__label {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--rosa-claro);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    letter-spacing: var(--letter-tight);
+    color: var(--off-white);
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid rgba(243, 232, 217, 0.3);
+    padding: 10px 0;
+    width: 100%;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-bottom-color: var(--rosa-pink);
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: rgba(243, 232, 217, 0.45);
+  }
+  .field select {
+    appearance: none;
+    background-image: linear-gradient(
+        45deg,
+        transparent 50%,
+        var(--rosa-pink) 50%
+      ),
+      linear-gradient(135deg, var(--rosa-pink) 50%, transparent 50%);
+    background-position:
+      calc(100% - 18px) center,
+      calc(100% - 12px) center;
+    background-size:
+      6px 6px,
+      6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 28px;
+  }
+  .field select option {
+    background: var(--verde-petroleo);
+    color: var(--off-white);
+  }
+  .field textarea {
+    border: 2px solid rgba(243, 232, 217, 0.3);
+    padding: 14px;
+    resize: vertical;
+    min-height: 120px;
+  }
+  .field textarea:focus {
+    border-color: var(--rosa-pink);
+  }
+
+  .contact__submit {
+    grid-column: 1 / -1;
+    justify-self: start;
+    background: var(--rosa-pink);
+    color: var(--verde-petroleo);
+    border: 0;
+    padding: 16px 32px;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: var(--letter-tight);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background var(--dur-fast) var(--ease-out);
+  }
+  .contact__submit:hover {
+    background: var(--pink-hover);
+  }
+
+  @media (max-width: 900px) {
+    .contact {
+      padding: 80px 24px;
+    }
+    .contact__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .contact__form {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

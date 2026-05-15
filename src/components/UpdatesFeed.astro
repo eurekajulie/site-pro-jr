@@ -52,8 +52,18 @@ const PLACEHOLDER = [
   },
 ];
 
+type Update = {
+  id: string | number;
+  type: keyof typeof UPDATE_TYPES | string;
+  when?: string;
+  where?: string;
+  title: string;
+  snippet?: string;
+  href?: string;
+};
+
 interface Props {
-  updates?: typeof PLACEHOLDER;
+  updates?: Update[];
 }
 
 const { updates = PLACEHOLDER } = Astro.props;

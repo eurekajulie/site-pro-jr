@@ -3,23 +3,29 @@ const cols = [
   {
     title: "Navegar",
     links: [
+      { label: "Início", href: "/" },
       { label: "Publicações", href: "/publicacoes" },
       { label: "Projetos", href: "/projetos" },
       { label: "Mídia", href: "/midia" },
     ],
   },
   {
-    title: "Encontrar",
+    title: "Redes",
     links: [
-      { label: "Instagram", href: "https://instagram.com/ricardjulie" },
-      { label: "LinkedIn", href: "#" },
-      { label: "Google Scholar", href: "#" },
-      { label: "Lattes", href: "#" },
+      { label: "Instagram", href: "https://www.instagram.com/ricardjulie/" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/ricardjulie/" },
+    ],
+  },
+  {
+    title: "Acadêmico",
+    links: [
+      { label: "Google Scholar", href: "https://scholar.google.com/citations?user=WBN6sqAAAAAJ" },
+      { label: "Lattes / CNPq", href: "http://lattes.cnpq.br/4340006008681596" },
     ],
   },
   {
     title: "Contato",
-    links: [{ label: "julie@ricardjulie.com", href: "mailto:julie@ricardjulie.com" }],
+    links: [{ label: "Fale comigo →", href: "/#contato" }],
   },
 ];
 
@@ -73,8 +79,8 @@ const year = new Date().getFullYear();
   }
   .site-footer__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
-    gap: 48px;
+    grid-template-columns: minmax(0, 1.4fr) repeat(4, minmax(0, 1fr));
+    gap: 40px;
     padding-bottom: 56px;
     border-bottom: 1px solid rgba(243, 232, 217, 0.15);
   }
