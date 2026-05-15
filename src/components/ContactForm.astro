@@ -1,9 +1,8 @@
 ---
-// CONFIGURAÇÃO: cole aqui o endpoint do Formspree depois que criar a conta.
-// 1. Acesse https://formspree.io e crie conta gratuita
-// 2. New Form → escolha o email destinatário (juliec.ricard@gmail.com)
-// 3. Copie a URL do endpoint (algo como https://formspree.io/f/xxxxxxxx) e cole abaixo.
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+// Form handled by Netlify Forms — funciona automaticamente assim que o site
+// for publicado no Netlify. As submissões aparecem em
+// app.netlify.com → Forms. Pode opcionalmente configurar notificações por
+// email no painel.
 ---
 
 <section id="contato" class="contact">
@@ -25,7 +24,19 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
       </p>
     </div>
 
-    <form class="contact__form" action={FORMSPREE_ENDPOINT} method="POST">
+    <form
+      class="contact__form"
+      name="contato"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/obrigada"
+    >
+      <input type="hidden" name="form-name" value="contato" />
+      <p style="display:none">
+        <label>não preencha: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      </p>
+
       <label class="field">
         <span class="field__label">nome</span>
         <input
@@ -69,9 +80,6 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
           placeholder="me conta um pouco sobre o que você precisa"
         ></textarea>
       </label>
-
-      <input type="hidden" name="_subject" value="Novo contato pelo site" />
-      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
       <button type="submit" class="contact__submit">
         Enviar mensagem

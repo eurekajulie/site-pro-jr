@@ -1,0 +1,111 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Obrigada — Julie Ricard"
+  description="Mensagem recebida."
+>
+  <section class="thanks">
+    <div class="thanks__echo"></div>
+    <div class="thanks__inner">
+      <div class="kicker">recebi!</div>
+      <h1 class="thanks__title">
+        Obrigada por{" "}
+        <span class="keyword">escrever</span>
+      </h1>
+      <p class="thanks__sub">
+        Tô olhando minhas mensagens — respondo o mais rápido que conseguir.
+        Enquanto isso, dá uma navegada no que tá <a href="/">novo por aqui</a>.
+      </p>
+      <a href="/" class="thanks__back">← voltar pra home</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .thanks {
+    background: var(--verde-petroleo);
+    color: var(--off-white);
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 96px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .thanks__echo {
+    position: absolute;
+    top: 120px;
+    right: -100px;
+    width: min(800px, 70%);
+    height: 200px;
+    border: 3px solid var(--laranja);
+    transform: rotate(5deg);
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .thanks__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .kicker {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--rosa-pink);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 20px;
+  }
+  .thanks__title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(40px, 5.6vw, 76px);
+    line-height: 1.02;
+    letter-spacing: var(--letter-tight);
+    margin: 0;
+  }
+  .thanks__title .keyword {
+    display: inline-block;
+    font-family: var(--font-serif);
+    text-transform: lowercase;
+    background: var(--rosa-pink);
+    color: var(--verde-petroleo);
+    padding: 2px 14px;
+    transform: rotate(-3deg);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .thanks__sub {
+    font-size: 19px;
+    line-height: 1.5;
+    margin-top: 28px;
+    opacity: 0.85;
+    max-width: 560px;
+  }
+  .thanks__sub a {
+    color: var(--rosa-claro);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .thanks__back {
+    display: inline-block;
+    margin-top: 40px;
+    color: var(--off-white);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: var(--letter-tight);
+    padding: 14px 28px;
+    border: 2px solid rgba(243, 232, 217, 0.3);
+    border-radius: var(--radius-md);
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .thanks__back:hover {
+    border-color: var(--rosa-pink);
+  }
+</style>
